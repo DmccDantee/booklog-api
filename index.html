@@ -11,26 +11,63 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Bankist | When Banking meets Minimalist</title>
+    <title>Bankist | Modern Bankacılık Deneyimi</title>
   </head>
   <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-content">
+        <div class="loading-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+            <defs>
+              <linearGradient id="loadingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#5ec576;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#9be15d;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <circle cx="40" cy="40" r="35" fill="url(#loadingGradient)" class="loading-circle"/>
+            <rect x="25" y="35" width="30" height="15" fill="white" rx="2"/>
+            <rect x="28" y="30" width="24" height="4" fill="white" rx="2"/>
+            <rect x="32" y="25" width="16" height="4" fill="white" rx="2"/>
+          </svg>
+        </div>
+        <h2>Bankist</h2>
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+        <p>Modern bankacılık yükleniyor...</p>
+      </div>
+    </div>
+
     <header class="header">
       <nav class="nav nav--modern">
-        <img
-          src="img/logo.png"
-          alt="Bankist logo"
-          class="nav__logo"
-          id="logo"
-        />
+        <div class="nav__logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40" class="nav__logo" id="logo">
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#5ec576;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#9be15d;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <circle cx="20" cy="20" r="18" fill="url(#logoGradient)" />
+            <rect x="12" y="15" width="16" height="10" fill="white" rx="1"/>
+            <rect x="14" y="12" width="12" height="2" fill="white" rx="1"/>
+            <rect x="16" y="9" width="8" height="2" fill="white" rx="1"/>
+            <line x1="12" y1="26" x2="28" y2="26" stroke="white" stroke-width="1"/>
+            <text x="45" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="var(--text-primary)">
+              Bankist
+            </text>
+          </svg>
+        </div>
         <ul class="nav__links">
           <li class="nav__item">
-            <a class="nav__link" href="#section--1">Features</a>
+            <a class="nav__link" href="#section--1">Özellikler</a>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="#section--2">Operations</a>
+            <a class="nav__link" href="#section--2">İşlemler</a>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="#section--3">Testimonials</a>
+            <a class="nav__link" href="#section--3">Yorumlar</a>
           </li>
           <li class="nav__item">
             <button class="theme-switcher" id="theme-switcher" aria-label="Toggle theme">
@@ -52,7 +89,7 @@
           </li>
           <li class="nav__item">
             <a class="nav__link nav__link--btn btn--show-modal" href="#"
-              >Open account</a
+              >Hesap Aç</a
             >
           </li>
         </ul>
@@ -60,35 +97,36 @@
 
       <div class="header__title">
         <h1 class="animate-in">
-          When
+          Modern
           <!-- Green highlight effect -->
-          <span class="highlight">banking</span>
-          meets<br />
-          <span class="highlight">minimalist</span>
+          <span class="highlight">bankacılık</span>
+          burada<br />
+          <span class="highlight">başlıyor</span>
         </h1>
-        <h4 class="animate-in animate-delay-1">A simpler banking experience for a simpler life.</h4>
-        <button class="btn--text btn--scroll-to animate-in animate-delay-2">Learn more &DownArrow;</button>
+        <h4 class="animate-in animate-delay-1">Daha basit yaşam için daha basit bankacılık deneyimi.</h4>
+        <button class="btn--text btn--scroll-to animate-in animate-delay-2">Daha fazla öğren &DownArrow;</button>
         <img
-          src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop&crop=center"
+          src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop&crop=center"
           class="header__img animate-in animate-delay-3"
-          alt="Modern banking technology"
+          alt="Modern bankacılık teknolojisi"
         />
       </div>
     </header>
 
     <section class="section section--observe" id="section--1">
       <div class="section__title">
-        <h2 class="section__description">Features</h2>
+        <h2 class="section__description">Özellikler</h2>
         <h3 class="section__header">
-          Everything you need in a modern bank and more.
+          Modern bir bankada ihtiyacınız olan her şey ve daha fazlası.
         </h3>
       </div>
 
       <div class="features">
         <img
           src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=400&fit=crop&crop=center"
-          alt="Digital banking interface"
-          class="features__img lazy-img"
+          alt="Dijital bankacılık arayüzü"
+          class="features__img"
+          loading="eager"
         />
         <div class="features__feature">
           <div class="features__icon">
@@ -98,11 +136,11 @@
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
           </div>
-          <h5 class="features__header">100% digital bank</h5>
+          <h5 class="features__header">%100 dijital banka</h5>
           <p>
-            Experience seamless digital banking with our cutting-edge technology. 
-            Manage your finances anytime, anywhere with our intuitive platform 
-            designed for the modern lifestyle.
+            Son teknoloji ile kusursuz dijital bankacılık deneyimi yaşayın. 
+            Modern yaşam tarzına uygun sezgisel platformumuzla finanslarınızı 
+            her zaman, her yerden yönetin.
           </p>
         </div>
 
@@ -112,23 +150,25 @@
               <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
             </svg>
           </div>
-          <h5 class="features__header">Watch your money grow</h5>
+          <h5 class="features__header">Paranızın büyümesini izleyin</h5>
           <p>
-            Track your investments and savings in real-time with our advanced 
-            analytics. Smart insights help you make informed financial decisions 
-            and maximize your wealth potential.
+            Gelişmiş analitiğimizle yatırımlarınızı ve birikimlerinizi gerçek 
+            zamanlı takip edin. Akıllı içgörüler ile bilinçli finansal kararlar 
+            alın ve servet potansiyelinizi maksimuma çıkarın.
           </p>
         </div>
         <img
           src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=500&h=400&fit=crop&crop=center"
-          alt="Financial growth"
-          class="features__img lazy-img"
+          alt="Finansal büyüme"
+          class="features__img"
+          loading="eager"
         />
 
         <img
           src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=500&h=400&fit=crop&crop=center"
-          alt="Modern payment card"
-          class="features__img lazy-img"
+          alt="Modern ödeme kartı"
+          class="features__img"
+          loading="eager"
         />
         <div class="features__feature">
           <div class="features__icon">
@@ -137,11 +177,11 @@
               <line x1="1" y1="10" x2="23" y2="10"/>
             </svg>
           </div>
-          <h5 class="features__header">Free debit card included</h5>
+          <h5 class="features__header">Ücretsiz banka kartı dahil</h5>
           <p>
-            Get instant access to your funds worldwide with our premium debit card. 
-            Contactless payments, enhanced security features, and zero foreign 
-            transaction fees included.
+            Premium banka kartımızla dünya çapında fonlarınıza anında erişim sağlayın. 
+            Temassız ödemeler, gelişmiş güvenlik özellikleri ve sıfır yurtdışı 
+            işlem ücreti dahil.
           </p>
         </div>
       </div>
@@ -149,9 +189,9 @@
 
     <section class="section section--observe" id="section--2">
       <div class="section__title">
-        <h2 class="section__description">Operations</h2>
+        <h2 class="section__description">İşlemler</h2>
         <h3 class="section__header">
-          Everything as simple as possible, but no simpler.
+          Her şey mümkün olduğunca basit, ama daha basit değil.
         </h3>
       </div>
 
@@ -161,13 +201,13 @@
             class="btn operations__tab operations__tab--1 operations__tab--active"
             data-tab="1"
           >
-            <span>01</span>Instant Transfers
+            <span>01</span>Anında Transfer
           </button>
           <button class="btn operations__tab operations__tab--2" data-tab="2">
-            <span>02</span>Instant Loans
+            <span>02</span>Anında Kredi
           </button>
           <button class="btn operations__tab operations__tab--3" data-tab="3">
-            <span>03</span>Instant Closing
+            <span>03</span>Anında Kapama
           </button>
         </div>
         <div
@@ -180,12 +220,12 @@
             </svg>
           </div>
           <h5 class="operations__header">
-            Transfer money to anyone, instantly! No fees, no BS.
+            Herkese anında para transferi! Ücret yok, karmaşa yok.
           </h5>
           <p>
-            Send money to friends, family, or businesses with zero processing time. 
-            Our advanced infrastructure ensures your transfers are secure, instant, 
-            and completely free of charge.
+            Arkadaşlarınıza, ailenize veya işletmelere sıfır işlem süresi ile para gönderin. 
+            Gelişmiş altyapımız transferlerinizin güvenli, anında ve tamamen ücretsiz 
+            olmasını sağlar.
           </p>
         </div>
 
@@ -197,12 +237,12 @@
             </svg>
           </div>
           <h5 class="operations__header">
-            Buy a home or make your dreams come true, with instant loans.
+            Ev satın alın veya hayallerinizi gerçekleştirin, anında kredilerle.
           </h5>
           <p>
-            Get pre-approved for loans in minutes with our AI-powered assessment system. 
-            Competitive rates, flexible terms, and transparent processes make achieving 
-            your dreams easier than ever.
+            AI destekli değerlendirme sistemimizle dakikalar içinde kredi ön onayı alın. 
+            Rekabetçi oranlar, esnek koşullar ve şeffaf süreçler hayallerinize ulaşmayı 
+            her zamankinden daha kolay hale getirir.
           </p>
         </div>
         <div class="operations__content operations__content--3">
@@ -213,12 +253,12 @@
             </svg>
           </div>
           <h5 class="operations__header">
-            No longer need your account? No problem! Close it instantly.
+            Artık hesabınıza ihtiyacınız yok mu? Sorun değil! Anında kapatın.
           </h5>
           <p>
-            Close your account with complete peace of mind. Our streamlined process 
-            ensures all your data is securely handled and you receive any remaining 
-            funds immediately.
+            Hesabınızı tam bir gönül rahatlığı ile kapatın. Akıcı sürecimiz 
+            tüm verilerinizin güvenli bir şekilde işlenmesini ve kalan fonlarınızı 
+            anında almanızı sağlar.
           </p>
         </div>
       </div>
@@ -226,25 +266,25 @@
 
     <section class="section section--observe" id="section--3">
       <div class="section__title section__title--testimonials">
-        <h2 class="section__description">Not sure yet?</h2>
+        <h2 class="section__description">Hala emin değil misiniz?</h2>
         <h3 class="section__header">
-          Millions of Bankists are already making their lives simpler.
+          Milyonlarca Bankist müşterisi zaten hayatlarını basitleştiriyor.
         </h3>
       </div>
 
       <div class="slider">
         <div class="slide slide--1">
           <div class="testimonial">
-            <h5 class="testimonial__header">Best financial decision ever!</h5>
+            <h5 class="testimonial__header">Şimdiye kadarki en iyi finansal karar!</h5>
             <blockquote class="testimonial__text">
-              Switching to Bankist transformed how I manage my finances. The intuitive 
-              interface and instant features save me hours every week. I can't imagine 
-              banking any other way now.
+              Bankist'e geçiş finansal yönetimimi tamamen dönüştürdü. Sezgisel 
+              arayüz ve anında özellikler her hafta saatlerimi kurtarıyor. Artık 
+              bankacılığı başka türlü hayal edemiyorum.
             </blockquote>
             <address class="testimonial__author">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Customer testimonial" class="testimonial__photo" />
-              <h6 class="testimonial__name">Aarav Lynn</h6>
-              <p class="testimonial__location">San Francisco, USA</p>
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Müşteri yorumu" class="testimonial__photo" loading="eager" />
+              <h6 class="testimonial__name">Ahmet Kaya</h6>
+              <p class="testimonial__location">İstanbul, Türkiye</p>
             </address>
           </div>
         </div>
@@ -252,17 +292,17 @@
         <div class="slide slide--2">
           <div class="testimonial">
             <h5 class="testimonial__header">
-              The last step to becoming a complete minimalist
+              Tam bir minimalist olmak için son adım
             </h5>
             <blockquote class="testimonial__text">
-              Bankist's clean design and powerful features align perfectly with my 
-              minimalist lifestyle. Everything I need, nothing I don't. Simple, 
-              elegant, and incredibly effective.
+              Bankist'in temiz tasarımı ve güçlü özellikleri minimalist yaşam tarzımla 
+              mükemmel uyum sağlıyor. İhtiyacım olan her şey var, gereksiz hiçbir şey yok. 
+              Basit, zarif ve inanılmaz etkili.
             </blockquote>
             <address class="testimonial__author">
-              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b830?w=100&h=100&fit=crop&crop=face" alt="Customer testimonial" class="testimonial__photo" />
-              <h6 class="testimonial__name">Miyah Miles</h6>
-              <p class="testimonial__location">London, UK</p>
+              <img src="https://images.unsplash.com/photo-1494790108755-2616b612b830?w=100&h=100&fit=crop&crop=face" alt="Müşteri yorumu" class="testimonial__photo" loading="eager" />
+              <h6 class="testimonial__name">Zeynep Yılmaz</h6>
+              <p class="testimonial__location">Ankara, Türkiye</p>
             </address>
           </div>
         </div>
@@ -270,17 +310,17 @@
         <div class="slide slide--3">
           <div class="testimonial">
             <h5 class="testimonial__header">
-              Finally free from old-school banks
+              Sonunda eski tip bankalardan kurtuldum
             </h5>
             <blockquote class="testimonial__text">
-              After years of frustration with traditional banking, Bankist feels 
-              like stepping into the future. Fast, reliable, and genuinely customer-focused. 
-              This is how banking should be.
+              Yıllarca geleneksel bankacılıkla yaşadığım hayal kırıklığından sonra, 
+              Bankist geleceğe adım atmak gibi hissettiriyor. Hızlı, güvenilir ve 
+              gerçekten müşteri odaklı. Bankacılık böyle olmalı.
             </blockquote>
             <address class="testimonial__author">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Customer testimonial" class="testimonial__photo" />
-              <h6 class="testimonial__name">Francisco Gomes</h6>
-              <p class="testimonial__location">Lisbon, Portugal</p>
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Müşteri yorumu" class="testimonial__photo" loading="eager" />
+              <h6 class="testimonial__name">Mehmet Özkan</h6>
+              <p class="testimonial__location">İzmir, Türkiye</p>
             </address>
           </div>
         </div>
@@ -294,65 +334,145 @@
     <section class="section section--sign-up">
       <div class="section__title">
         <h3 class="section__header">
-          The best day to join Bankist was one year ago. The second best is
-          today!
+          Bankist'e katılmak için en iyi gün bir yıl önceydi. İkinci en iyi gün 
+          ise bugün!
         </h3>
       </div>
-      <button class="btn btn--show-modal pulse-animation">Open your free account today!</button>
+      <button class="btn btn--show-modal pulse-animation">Bugün ücretsiz hesabınızı açın!</button>
     </section>
 
     <footer class="footer">
       <ul class="footer__nav">
         <li class="footer__item">
-          <a class="footer__link" href="#">About</a>
+          <a class="footer__link" href="#">Hakkımızda</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="#">Pricing</a>
+          <a class="footer__link" href="#">Fiyatlandırma</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="#">Terms of Use</a>
+          <a class="footer__link" href="#">Kullanım Koşulları</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="#">Privacy Policy</a>
+          <a class="footer__link" href="#">Gizlilik Politikası</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="#">Careers</a>
+          <a class="footer__link" href="#">Kariyer</a>
         </li>
         <li class="footer__item">
           <a class="footer__link" href="#">Blog</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="#">Contact Us</a>
+          <a class="footer__link" href="#">İletişim</a>
         </li>
       </ul>
-      <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=100&h=100&fit=crop&crop=center" alt="Bankist Logo" class="footer__logo" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" class="footer__logo">
+        <defs>
+          <linearGradient id="footerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#5ec576;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#9be15d;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <circle cx="30" cy="30" r="28" fill="url(#footerGradient)" />
+        <rect x="18" y="25" width="24" height="15" fill="white" rx="2"/>
+        <rect x="21" y="20" width="18" height="3" fill="white" rx="1"/>
+        <rect x="24" y="15" width="12" height="3" fill="white" rx="1"/>
+        <line x1="18" y1="42" x2="42" y2="42" stroke="white" stroke-width="2"/>
+      </svg>
       <p class="footer__copyright">
-        &copy; Copyright by
+        &copy; Telif Hakkı Sahibi
         <a
           class="footer__link twitter-link"
           target="_blank"
-          href="https://twitter.com/jonasschmedtman"
-          >Jonas Schmedtmann</a
-        >. Use for learning or your portfolio. Don't use to teach. Don't claim
-        as your own product.
+          href="#"
+          >Diyar Altan</a
+        >. Öğrenme veya portföy amaçlı kullanım için. Eğitim verme amaçlı kullanmayın. 
+        Kendi ürününüz olarak tanıtmayın.
       </p>
     </footer>
 
     <div class="modal hidden">
       <button class="btn--close-modal">&times;</button>
       <h2 class="modal__header">
-        Open your bank account <br />
-        in just <span class="highlight">5 minutes</span>
+        Banka hesabınızı sadece <br />
+        <span class="highlight">5 dakikada</span> açın
       </h2>
-      <form class="modal__form">
-        <label>First Name</label>
-        <input type="text" />
-        <label>Last Name</label>
-        <input type="text" />
-        <label>Email Address</label>
-        <input type="email" />
-        <button class="btn">Next step &rarr;</button>
+      <form class="modal__form" id="registrationForm">
+        <label>Ad</label>
+        <input type="text" id="firstName" required placeholder="Adınızı girin" />
+        <label>Soyad</label>
+        <input type="text" id="lastName" required placeholder="Soyadınızı girin" />
+        <label>E-posta Adresi</label>
+        <input type="email" id="email" required placeholder="email@örnek.com" />
+        <button type="submit" class="btn">Sonraki Adım &rarr;</button>
       </form>
+      <div id="formMessage" class="form-message hidden"></div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal hidden" id="successModal">
+      <div class="success-content">
+        <div class="success-icon">✅</div>
+        <h2>Hoş Geldiniz!</h2>
+        <p>Hesabınız başarıyla oluşturuldu. Artık Bankist'in tüm özelliklerinden yararlanabilirsiniz.</p>
+        <button class="btn" onclick="enterBankingApp()">Bankacılık Uygulamasına Gir</button>
+      </div>
+    </div>
+
+    <!-- Banking App -->
+    <div class="banking-app hidden" id="bankingApp">
+      <div class="app-header">
+        <h1>Bankist Panel</h1>
+        <div class="user-info">
+          <span id="userWelcome"></span>
+          <button class="btn-logout" onclick="logout()">Çıkış</button>
+        </div>
+      </div>
+      
+      <div class="app-content">
+        <div class="account-summary">
+          <h2>Hesap Özeti</h2>
+          <div class="balance">
+            <span class="balance-label">Mevcut Bakiye</span>
+            <span class="balance-amount" id="currentBalance">₺5,423.00</span>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="action-btn" onclick="showTransferModal()">
+            <span class="action-icon">💸</span>
+            Para Transferi
+          </button>
+          <button class="action-btn" onclick="showLoanModal()">
+            <span class="action-icon">💰</span>
+            Kredi Başvurusu
+          </button>
+          <button class="action-btn" onclick="showAccountModal()">
+            <span class="action-icon">❌</span>
+            Hesap Kapatma
+          </button>
+        </div>
+
+        <div class="transaction-history">
+          <h3>Son İşlemler</h3>
+          <div id="transactionsList">
+            <div class="transaction">
+              <span class="transaction-type">Gelen Transfer</span>
+              <span class="transaction-amount">+₺1,200.00</span>
+              <span class="transaction-date">Bugün</span>
+            </div>
+            <div class="transaction">
+              <span class="transaction-type">Market Alışverişi</span>
+              <span class="transaction-amount">-₺85.50</span>
+              <span class="transaction-date">Dün</span>
+            </div>
+            <div class="transaction">
+              <span class="transaction-type">ATM'den Para Çekme</span>
+              <span class="transaction-amount">-₺300.00</span>
+              <span class="transaction-date">2 gün önce</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="overlay hidden"></div>
 
