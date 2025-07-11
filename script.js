@@ -224,6 +224,25 @@ const initLoadingScreen = () => {
 };
 
 ///////////////////////////////////////
+// Scroll Progress Indicator
+///////////////////////////////////////
+
+const initScrollProgress = () => {
+  const scrollProgress = document.getElementById('scrollProgress');
+  
+  const updateScrollProgress = () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.offsetHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    
+    scrollProgress.style.width = scrollPercent + '%';
+  };
+  
+  window.addEventListener('scroll', updateScrollProgress);
+  updateScrollProgress(); // Initial call
+};
+
+///////////////////////////////////////
 // Enhanced Slider
 ///////////////////////////////////////
 
@@ -541,12 +560,232 @@ const initAccessibility = () => {
 };
 
 ///////////////////////////////////////
+// Banking System & Form Handling
+///////////////////////////////////////
+
+// User data storage
+let currentUser = null;
+let users = JSON.parse(localStorage.getItem('bankistUsers')) || [];
+
+// Banking algorithms
+const calculateLoanAmount = (income, creditScore = 750) => {
+  const baseMultiplier = 5;
+  const creditMultiplier = creditScore / 750;
+  return Math.round(income * baseMultiplier * creditMultiplier);
+};
+
+const calculateInterestRate = (creditScore, loanAmount) => {
+  let baseRate = 3.5;
+  if (creditScore < 600) baseRate += 2;
+  else if (creditScore < 700) baseRate += 1;
+  
+  if (loanAmount > 500000) baseRate += 0.5;
+  return baseRate.toFixed(2);
+};
+
+const generateAccountNumber = () => {
+  return 'TR' + Math.random().toString().slice(2, 11);
+};
+
+const generateRandomBalance = () => {
+  return Math.round((Math.random() * 50000 + 5000) * 100) / 100;
+};
+
+// Form submission handler
+const handleRegistration = (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  const firstName = formData.get('firstName') || document.getElementById('firstName').value;
+  const lastName = formData.get('lastName') || document.getElementById('lastName').value;
+  const email = formData.get('email') || document.getElementById('email').value;
+  
+  // Validate form
+  if (!firstName || !lastName || !email) {
+    showFormMessage('Lütfen tüm alanları doldurun!', 'error');
+    return;
+  }
+  
+  if (!email.includes('@')) {
+    showFormMessage('Geçerli bir e-posta adresi girin!', 'error');
+    return;
+  }
+  
+  // Check if user already exists
+  if (users.find(user => user.email === email)) {
+    showFormMessage('Bu e-posta adresi zaten kayıtlı!', 'error');
+    return;
+  }
+  
+  // Create new user
+  const newUser = {
+    id: Date.now(),
+    firstName,
+    lastName,
+    email,
+    accountNumber: generateAccountNumber(),
+    balance: generateRandomBalance(),
+    creditScore: Math.floor(Math.random() * 300) + 600, // 600-900
+    transactions: [
+      {
+        type: 'Hoş Geldin Bonusu',
+        amount: 1000,
+        date: new Date().toLocaleDateString('tr-TR')
+      }
+    ],
+    createdAt: new Date().toISOString()
+  };
+  
+  users.push(newUser);
+  localStorage.setItem('bankistUsers', JSON.stringify(users));
+  currentUser = newUser;
+  
+  showFormMessage('Hesabınız başarıyla oluşturuluyor...', 'success');
+  
+  // Close modal and show success
+  setTimeout(() => {
+    closeModal();
+    showSuccessModal();
+  }, 1500);
+};
+
+const showFormMessage = (message, type) => {
+  const messageEl = document.getElementById('formMessage');
+  messageEl.textContent = message;
+  messageEl.className = `form-message ${type}`;
+  messageEl.classList.remove('hidden');
+  
+  if (type === 'error') {
+    messageEl.classList.add('animate-shake');
+    setTimeout(() => messageEl.classList.remove('animate-shake'), 500);
+  }
+};
+
+const showSuccessModal = () => {
+  const successModal = document.getElementById('successModal');
+  successModal.classList.remove('hidden');
+  successModal.classList.add('animate-bounce');
+};
+
+const enterBankingApp = () => {
+  const successModal = document.getElementById('successModal');
+  const bankingApp = document.getElementById('bankingApp');
+  const userWelcome = document.getElementById('userWelcome');
+  const currentBalance = document.getElementById('currentBalance');
+  
+  successModal.classList.add('hidden');
+  bankingApp.classList.remove('hidden');
+  
+  userWelcome.textContent = `Hoş geldiniz, ${currentUser.firstName} ${currentUser.lastName}`;
+  currentBalance.textContent = `₺${currentUser.balance.toLocaleString('tr-TR')}`;
+  
+  updateTransactionsList();
+};
+
+const updateTransactionsList = () => {
+  const transactionsList = document.getElementById('transactionsList');
+  transactionsList.innerHTML = '';
+  
+  currentUser.transactions.forEach(transaction => {
+    const transactionEl = document.createElement('div');
+    transactionEl.className = 'transaction';
+    transactionEl.innerHTML = `
+      <span class="transaction-type">${transaction.type}</span>
+      <span class="transaction-amount ${transaction.amount > 0 ? 'positive' : 'negative'}">
+        ${transaction.amount > 0 ? '+' : ''}₺${Math.abs(transaction.amount).toLocaleString('tr-TR')}
+      </span>
+      <span class="transaction-date">${transaction.date}</span>
+    `;
+    transactionsList.appendChild(transactionEl);
+  });
+};
+
+// Banking operations
+const showTransferModal = () => {
+  const amount = prompt('Transfer edilecek miktarı girin (₺):');
+  if (amount && !isNaN(amount) && amount > 0) {
+    if (amount <= currentUser.balance) {
+      currentUser.balance -= parseFloat(amount);
+      currentUser.transactions.unshift({
+        type: 'Para Transferi',
+        amount: -parseFloat(amount),
+        date: new Date().toLocaleDateString('tr-TR')
+      });
+      updateUserData();
+      updateTransactionsList();
+      document.getElementById('currentBalance').textContent = `₺${currentUser.balance.toLocaleString('tr-TR')}`;
+      alert(`₺${amount} başarıyla transfer edildi!`);
+    } else {
+      alert('Yetersiz bakiye!');
+    }
+  }
+};
+
+const showLoanModal = () => {
+  const maxLoan = calculateLoanAmount(currentUser.balance * 12); // Assume monthly income
+  const interestRate = calculateInterestRate(currentUser.creditScore, maxLoan);
+  
+  const amount = prompt(`Kredi talebiniz (Maksimum: ₺${maxLoan.toLocaleString('tr-TR')}, Faiz Oranı: %${interestRate}):`);
+  
+  if (amount && !isNaN(amount) && amount > 0) {
+    if (amount <= maxLoan) {
+      currentUser.balance += parseFloat(amount);
+      currentUser.transactions.unshift({
+        type: 'Kredi Onayı',
+        amount: parseFloat(amount),
+        date: new Date().toLocaleDateString('tr-TR')
+      });
+      updateUserData();
+      updateTransactionsList();
+      document.getElementById('currentBalance').textContent = `₺${currentUser.balance.toLocaleString('tr-TR')}`;
+      alert(`₺${amount} kredi başarıyla onaylandı! Faiz oranınız: %${interestRate}`);
+    } else {
+      alert(`Maksimum kredi limitiniz: ₺${maxLoan.toLocaleString('tr-TR')}`);
+    }
+  }
+};
+
+const showAccountModal = () => {
+  const confirm = window.confirm('Hesabınızı kapatmak istediğinizden emin misiniz?');
+  if (confirm) {
+    const finalConfirm = window.confirm(`₺${currentUser.balance.toLocaleString('tr-TR')} bakiyeniz iade edilecek. Onaylıyor musunuz?`);
+    if (finalConfirm) {
+      // Remove user from storage
+      users = users.filter(user => user.id !== currentUser.id);
+      localStorage.setItem('bankistUsers', JSON.stringify(users));
+      
+      alert(`Hesabınız kapatıldı. ₺${currentUser.balance.toLocaleString('tr-TR')} bakiyeniz iade edilmiştir. Bankist'i tercih ettiğiniz için teşekkürler!`);
+      logout();
+    }
+  }
+};
+
+const updateUserData = () => {
+  const userIndex = users.findIndex(user => user.id === currentUser.id);
+  if (userIndex !== -1) {
+    users[userIndex] = currentUser;
+    localStorage.setItem('bankistUsers', JSON.stringify(users));
+  }
+};
+
+const logout = () => {
+  currentUser = null;
+  document.getElementById('bankingApp').classList.add('hidden');
+  document.body.classList.remove('banking-mode');
+  
+  // Reset to main page
+  window.location.reload();
+};
+
+///////////////////////////////////////
 // Initialize All Features
 ///////////////////////////////////////
 
 document.addEventListener('DOMContentLoaded', function() {
   // Core functionality
   initTheme();
+  initLoadingScreen();
+  initScrollProgress();
   slider();
   
   // Enhanced features
@@ -557,7 +796,14 @@ document.addEventListener('DOMContentLoaded', function() {
   initErrorHandling();
   initAccessibility();
   
+  // Form handling
+  const registrationForm = document.getElementById('registrationForm');
+  if (registrationForm) {
+    registrationForm.addEventListener('submit', handleRegistration);
+  }
+  
   console.log('🏦 Bankist modernization complete! All features loaded.');
+  console.log('🚀 Designed & Developed by Diyar Altan');
 });
 
 // Export for potential module usage
